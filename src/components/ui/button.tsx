@@ -3,31 +3,36 @@ import React from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
-  className?: string;
-  children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export function Button({
   variant = 'default',
   size = 'md',
   className = '',
   children,
   ...props
-}) => {
-  const base = 'rounded-md font-medium transition-all duration-200';
+}: ButtonProps) {
+  const base =
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-all duration-200 ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 disabled:opacity-50';
+
   const variants = {
     default: 'bg-emerald-500 text-white hover:bg-emerald-600',
-    ghost: 'bg-transparent text-slate-700 hover:bg-slate-100',
+    ghost: 'hover:bg-slate-100 text-slate-700',
   };
+
   const sizes = {
-    sm: 'px-3 py-1 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
+    sm: 'h-8 px-3',
+    md: 'h-9 px-4',
+    lg: 'h-10 px-6',
   };
 
   return (
-    <button className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
+    <button
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+      {...props}
+    >
       {children}
     </button>
   );
-};
+}

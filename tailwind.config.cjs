@@ -5,20 +5,19 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      phone: '500px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    },
     extend: {
-      colors: {
-        brand: {
-          emerald: '#10b981',
-          cyan: '#06b6d4',
-          blue: '#3b82f6',
-          navy: '#0f172a',
-        },
-      },
       fontFamily: {
         display: ['Fredoka', 'sans-serif'],
-        body: ['Work Sans', 'system-ui','sans-serif'],
+        body: ['Work Sans', 'system-ui', 'sans-serif'],
       },
     },
-    plugins: [],
-  }
+  },
+  plugins: [],
 };
