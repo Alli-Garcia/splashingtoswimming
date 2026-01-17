@@ -15,3 +15,21 @@
 body {
   font-family: 'Work Sans', system-ui, sans-serif;
 }
+
+.desktop-nav {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}

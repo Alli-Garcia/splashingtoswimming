@@ -1,11 +1,5 @@
-import { useState } from 'react'
-import { Header } from './components/Header'; // adjust path if needed
-// import your pages later
-// import { HomePage } from './components/HomePage';
-// import { BookPage } from './components/BookPage';
-// import { ReviewsPage } from './components/ReviewsPage';
-// import { ContactPage } from './components/ContactPage';
-
+import { useState } from 'react';
+import { Header } from './components/Header';
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
@@ -26,6 +20,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      
       {/* Header */}
       <Header activeSection={activeSection} onSectionChange={setActiveSection} />
 

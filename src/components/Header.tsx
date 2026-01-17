@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
-import logoImage from '../assets/logo.png';
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import logoImage from "../assets/logo.png";
 
 interface HeaderProps {
   activeSection: string;
@@ -12,73 +11,78 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'book', label: 'Book' },
-    { id: 'reviews', label: 'Reviews' },
-    { id: 'contact', label: 'Contact' },
+    { id: "home", label: "Home" },
+    { id: "book", label: "Book" },
+    { id: "reviews", label: "Reviews" },
+    { id: "contact", label: "Contact" },
+    { id: "about", label: "About" },
   ];
 
   return (
-    <header className="bg-gradient-to-b from-white to-slate-50 shadow-lg border-b border-slate-200">
-      <div className="min-h-[520px] flex flex-col items-center justify-center px-4">
-
+    <header style={{ borderBottom: "1px solid #e5e7eb", padding: "40px 0" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "32px",
+        }}
+      >
         {/* Logo */}
-        <div className="flex flex-col items-center mb-8">
-          <img src={logoImage} alt="Logo" className="h-48 w-auto mb-6" />
-          <h1 className="text-3xl font-black uppercase">GRÁINNE MCGRATH</h1>
-          <p className="text-slate-600 font-bold tracking-widest">
-            SWIMMING INSTRUCTOR & AUTHOR
-          </p>
+        <div style={{ textAlign: "center" }}>
+          <img src={logoImage} alt="Logo" style={{ height: 192 }} />
+          <h1 style={{ fontSize: 32, fontWeight: 800, marginTop: 16 }}>
+            GRÁINNE MCGRATH
+          </h1>
+          <p style={{ letterSpacing: 2 }}>SWIMMING INSTRUCTOR & AUTHOR</p>
         </div>
 
-        {/* ===== DESKTOP NAV ===== */}
-        <nav className="max-[500px]:hidden flex space-x-6 lg:space-x-8">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onSectionChange(item.id)}
-              className={`px-6 py-3 rounded-lg font-medium text-lg transition-all ${
-                activeSection === item.id
-                  ? 'bg-emerald-100 text-emerald-700'
-                  : 'text-slate-700 hover:text-emerald-600'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+        {/* Desktop Nav */}
+        <nav>
+          <div className="desktop-nav" style={{ gap: "48px" }}>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => onSectionChange(item.id)}
+                style={{
+                  padding: "8px 16px",
+                  border: "1px solid #ccc",
+                  background: "white",
+                  cursor: "pointer",
+                  fontWeight:
+                    activeSection === item.id ? "700" : "400",
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </nav>
 
+        {/* Mobile Menu Toggle */}
+        <button
+          className="mobile-only"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{ marginTop: 24 }}
+        >
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
 
-        {/* ===== MOBILE MENU BUTTON ===== */}
-        <div className="max-[500px]:block hidden mt-4">
-          <Button
-            variant="ghost"
-            size="lg"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center gap-2"
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-            <span>{mobileMenuOpen ? 'Close' : 'Menu'}</span>
-          </Button>
-        </div>
-
-        {/* ===== MOBILE NAV ===== */}
+        {/* Mobile Nav */}
         {mobileMenuOpen && (
-          <nav className="max-[500px]:block hidden mt-6 w-full max-w-sm bg-white border rounded-lg p-4 space-y-2">
+          <div className="mobile-only" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {navItems.map((item) => (
-              <Button
+              <button
                 key={item.id}
-                variant="ghost"
                 onClick={() => {
                   onSectionChange(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full justify-center"
               >
                 {item.label}
-              </Button>
+              </button>
             ))}
-          </nav>
+          </div>
         )}
       </div>
     </header>
