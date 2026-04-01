@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&family=Work+Sans:wght@400;600;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&family=Work+Sans:wght@400;600;700&display=swap');
-
 :root {
   --brand-emerald: #10b981;
   --brand-cyan: #06b6d4;
@@ -13,7 +7,19 @@
 }
 
 body {
-  font-family: 'Work Sans', system-ui, sans-serif;
+  font-family: 'Work Sans', 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fredoka', sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
 
 .desktop-nav {
@@ -32,4 +38,27 @@ body {
   .mobile-only {
     display: block;
   }
+}
+
+.nav-button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  background-color: transparent;
+  color: #334155;
+  font-weight: 400;
+  transition: all 0.2s;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.nav-button:hover {
+  color: var(--brand-emerald); /* Emerald green on hover */
+}
+
+.nav-button.active {
+  background-color: #d1fae5;
+  color: #047857;
+  font-weight: 600;
 }

@@ -12,25 +12,45 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const base =
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-all duration-200 ' +
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 disabled:opacity-50';
-
-  const variants = {
-    default: 'bg-emerald-500 text-white hover:bg-emerald-600',
-    ghost: 'hover:bg-slate-100 text-slate-700',
+  const baseStyle: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    borderRadius: '9999px',
+    fontWeight: 500,
+    transition: 'all 0.2s',
+    outline: 'none',
+    opacity: props.disabled ? 0.5 : 1,
   };
 
-  const sizes = {
-    sm: 'h-8 px-3',
-    md: 'h-9 px-4',
-    lg: 'h-10 px-6',
+  const variantStyles: Record<'default' | 'ghost', React.CSSProperties> = {
+    default: {
+      backgroundColor: '#10b981',
+      color: '#fff',
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: '#1e293b',
+    },
+  };
+
+  const sizeStyles: Record<string, React.CSSProperties> = {
+    sm: { height: '2rem', padding: '0 0.75rem' },
+    md: { height: '2.25rem', padding: '0 1rem' },
+    lg: { height: '2.5rem', padding: '0 1.5rem' },
   };
 
   return (
     <button
-      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
-      {...props}
+      className={`button-${variant}`}
+      style={{
+              ...baseStyle,
+              ...variantStyles[variant],
+              ...sizeStyles[size],
+              ...(props.style || {}),
+            }}      
+            {...props}
     >
       {children}
     </button>
