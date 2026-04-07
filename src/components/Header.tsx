@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logoImage from "../assets/logo.png";
+import { useEffect } from "react";
+import "../index.css";
 
 interface HeaderProps {
   activeSection: string;
@@ -45,62 +47,93 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
       </div>
 
       {/* Desktop Navigation */}
-      <nav style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+      <nav className="desktop-nav" style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => onSectionChange(item.id)}
             className={`nav-button ${activeSection === item.id ? 'active' : ''}`}
             style={{
-              fontWeight: 400, // Removed bold font weight for selected nav text
-              color: activeSection === item.id ? '#065f46' : '#334155', // Dark green when selected
+              fontWeight: 400,
+              color: activeSection === item.id ? '#065f46' : '#334155',
               transition: 'color 0.2s',
             }}
             onMouseEnter={(e) => {
               if (activeSection !== item.id) {
-                e.currentTarget.style.color = '#047857'; // Green on hover for non-selected
+                e.currentTarget.style.color = '#047857';
               }
             }}
             onMouseLeave={(e) => {
               if (activeSection !== item.id) {
-                e.currentTarget.style.color = '#334155'; // Reset to default for non-selected
+                e.currentTarget.style.color = '#334155';
               }
             }}
           >
             {item.label}
           </button>
-          ))
-        }
+        ))}
       </nav>
 
-      {/* Mobile Menu Toggle */}
-      <button
-        className="mobile-only"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        style={{ marginTop: 24 }}
-      >
-        {mobileMenuOpen ? <X /> : <Menu />}
-      </button>
-
-      {/* Mobile Nav */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-only"
-          style={{ display: "flex", flexDirection: "column", gap: 12 }}
+      {/* Mobile Menu Button */}
+      <div className="mobile-menu-toggle" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3rem' }}>
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className={`nav-button ${mobileMenuOpen ? 'active' : ''}`}
+          style={{
+            fontWeight: 400,
+            color: mobileMenuOpen ? '#065f46' : '#334155',
+            transition: 'color 0.2s',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#047857')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = mobileMenuOpen ? '#065f46' : '#334155')}
         >
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                onSectionChange(item.id);
-                setMobileMenuOpen(false);
-              }}
-            >
-              {item.label}
-            </button>
-          ))}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <span style={{ marginLeft: '0.5rem' }}>Menu</span>
+        </button>
+      </div>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div className="md:hidden mt-6 w-full max-w-sm">
+          <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-4 space-y-2">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onSectionChange(item.id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block px-4 py-3 rounded-lg w-full text-center font-medium transition-all duration-200 ${
+                  activeSection === item.id
+                    ? 'bg-emerald-100 text-emerald-700 shadow-sm'
+                    : 'text-slate-700 hover:text-emerald-600 hover:bg-slate-50'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 650px) {
+          .desktop-nav {
+            display: none !important;
+          }
+        }
+
+        @media (min-width: 651px) {
+          .mobile-menu-toggle {
+            display: none !important;
+          }
+        }
+
+        
+      `}</style>
     </header>
   );
 }
