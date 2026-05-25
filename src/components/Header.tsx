@@ -12,6 +12,17 @@ interface HeaderProps {
 export function Header({ activeSection, onSectionChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 650) {
+        setMobileMenuOpen(false);
+      }
+  };
+
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
   const navItems = [
     { id: "home", label: "Home" },
     { id: "book", label: "Book" },
